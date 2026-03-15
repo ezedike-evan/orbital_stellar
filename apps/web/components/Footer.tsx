@@ -1,80 +1,173 @@
+'use client'
+
 import Link from 'next/link'
+
+const labelStyle: React.CSSProperties = {
+  fontFamily: 'var(--font-sans)',
+  fontSize: '11px',
+  textTransform: 'uppercase',
+  letterSpacing: '0.1em',
+  color: 'var(--muted)',
+  marginBottom: '16px',
+  display: 'block',
+}
+
+const linkStyle: React.CSSProperties = {
+  fontFamily: 'var(--font-sans)',
+  fontSize: '14px',
+  color: 'var(--muted2)',
+  textDecoration: 'none',
+  display: 'block',
+  marginTop: '12px',
+  transition: 'color 0.15s',
+}
 
 export default function Footer() {
   return (
-    <footer className="border-t border-white/[.08]">
-      <div className="max-w-content mx-auto px-8 pt-16 pb-0">
-        {/* Columns */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-12 pb-12">
+    <footer style={{ borderTop: '1px solid var(--border)', padding: '80px 32px 0' }}>
+      <div style={{ maxWidth: 'var(--max-width)', margin: '0 auto' }}>
+        {/* 4-column grid */}
+        <div
+          style={{
+            display: 'grid',
+            gridTemplateColumns: 'repeat(4, 1fr)',
+            gap: '48px',
+            paddingBottom: '64px',
+          }}
+        >
           {/* Brand */}
           <div>
-            <p className="font-heading font-bold text-white text-lg tracking-tight mb-3">
+            <p
+              style={{
+                fontFamily: 'var(--font-sans)',
+                fontWeight: 700,
+                fontSize: '16px',
+                color: '#fff',
+                marginBottom: '12px',
+              }}
+            >
               Orbit Stellar
             </p>
-            <p className="text-muted text-sm leading-relaxed mb-4 max-w-[260px]">
+            <p
+              style={{
+                fontFamily: 'var(--font-sans)',
+                fontSize: '14px',
+                color: 'var(--muted2)',
+                lineHeight: 1.6,
+                marginBottom: '24px',
+              }}
+            >
               Real-time event infrastructure for Stellar developers.
             </p>
-            <p className="text-muted text-xs mb-2">MIT License</p>
-            <p className="text-white text-sm flex items-center gap-2">
-              <span className="text-accent text-[0.5rem]">●</span>
+            <p
+              style={{
+                fontFamily: 'var(--font-sans)',
+                fontSize: '12px',
+                color: 'var(--muted)',
+                marginBottom: '8px',
+              }}
+            >
+              MIT License
+            </p>
+            <p
+              style={{
+                fontFamily: 'var(--font-sans)',
+                fontSize: '12px',
+                color: 'var(--muted2)',
+                display: 'flex',
+                alignItems: 'center',
+                gap: '6px',
+              }}
+            >
+              <span style={{ color: 'var(--accent)' }}>●</span>
               All systems operational
             </p>
           </div>
 
           {/* Product */}
           <div>
-            <p className="text-white text-xs uppercase tracking-widest font-semibold mb-4">
-              Product
-            </p>
-            <ul className="flex flex-col gap-2.5">
-              {['Docs', 'SDKs', 'How it works', 'Changelog', 'Status'].map((item) => (
-                <li key={item}>
-                  <Link href="#" className="text-muted text-sm hover:text-white transition-colors">
-                    {item}
-                  </Link>
-                </li>
-              ))}
-            </ul>
+            <span style={labelStyle}>Product</span>
+            {['Docs', 'SDKs', 'How it works', 'Changelog', 'Status'].map((item) => (
+              <Link
+                key={item}
+                href="#"
+                style={linkStyle}
+                onMouseEnter={(e) => (e.currentTarget.style.color = '#fff')}
+                onMouseLeave={(e) => (e.currentTarget.style.color = 'var(--muted2)')}
+              >
+                {item}
+              </Link>
+            ))}
           </div>
 
           {/* Packages */}
           <div>
-            <p className="text-white text-xs uppercase tracking-widest font-semibold mb-4">
-              Packages
-            </p>
-            <ul className="flex flex-col gap-2.5">
-              {[
-                'npm i @orbital/pulse-webhooks',
-                'npm i @orbital/pulse-notify',
-              ].map((cmd) => (
-                <li key={cmd} className="font-mono text-muted text-xs">
-                  {cmd}
-                </li>
-              ))}
-            </ul>
+            <span style={labelStyle}>Packages</span>
+            {[
+              'npm i @orbital/pulse-webhooks',
+              'npm i @orbital/pulse-notify',
+            ].map((cmd) => (
+              <p
+                key={cmd}
+                style={{
+                  fontFamily: 'var(--font-mono)',
+                  fontSize: '13px',
+                  color: 'var(--muted2)',
+                  display: 'block',
+                  marginTop: '12px',
+                }}
+              >
+                {cmd}
+              </p>
+            ))}
           </div>
 
           {/* Community */}
           <div>
-            <p className="text-white text-xs uppercase tracking-widest font-semibold mb-4">
-              Community
-            </p>
-            <ul className="flex flex-col gap-2.5">
-              {['GitHub', 'Twitter', 'SCF Grant', 'Open an issue'].map((item) => (
-                <li key={item}>
-                  <Link href="#" className="text-muted text-sm hover:text-white transition-colors">
-                    {item}
-                  </Link>
-                </li>
-              ))}
-            </ul>
+            <span style={labelStyle}>Community</span>
+            {['GitHub', 'Twitter', 'SCF Grant', 'Open an issue'].map((item) => (
+              <Link
+                key={item}
+                href="#"
+                style={linkStyle}
+                onMouseEnter={(e) => (e.currentTarget.style.color = '#fff')}
+                onMouseLeave={(e) => (e.currentTarget.style.color = 'var(--muted2)')}
+              >
+                {item}
+              </Link>
+            ))}
           </div>
         </div>
 
         {/* Bottom bar */}
-        <div className="flex flex-col sm:flex-row justify-between items-center gap-2 py-5 border-t border-white/[.08]">
-          <span className="text-muted text-xs">© 2026 Orbit Stellar</span>
-          <span className="text-muted text-xs">Built for the Stellar ecosystem</span>
+        <div
+          style={{
+            borderTop: '1px solid var(--border)',
+            paddingTop: '24px',
+            paddingBottom: '48px',
+            display: 'flex',
+            justifyContent: 'space-between',
+            alignItems: 'center',
+          }}
+        >
+          <span
+            style={{
+              fontFamily: 'var(--font-sans)',
+              fontSize: '13px',
+              color: 'var(--muted)',
+            }}
+          >
+            © 2026 Orbit Stellar
+          </span>
+          <span
+            style={{
+              fontFamily: 'var(--font-sans)',
+              fontSize: '13px',
+              color: 'var(--muted)',
+            }}
+          >
+            Built for the Stellar ecosystem
+          </span>
         </div>
       </div>
     </footer>

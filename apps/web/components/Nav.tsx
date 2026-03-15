@@ -1,23 +1,79 @@
+'use client'
+
 import Link from 'next/link'
 
 export default function Nav() {
   return (
-    <nav className="sticky top-0 z-50 bg-bg border-b border-white/[.08]">
-      <div className="max-w-content mx-auto px-8 h-16 flex items-center justify-between">
-        <div className="font-heading font-medium text-lg tracking-tight text-white">
+    <nav
+      style={{
+        position: 'fixed',
+        top: 0,
+        left: 0,
+        right: 0,
+        zIndex: 50,
+        backdropFilter: 'blur(16px)',
+        background: 'rgba(8,8,8,0.8)',
+        borderBottom: '1px solid var(--border)',
+      }}
+    >
+      <div
+        style={{
+          maxWidth: 'var(--max-width)',
+          margin: '0 auto',
+          padding: '0 32px',
+          height: '60px',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'space-between',
+        }}
+      >
+        {/* Logo */}
+        <span
+          style={{
+            fontFamily: 'var(--font-sans)',
+            fontWeight: 600,
+            fontSize: '15px',
+            color: '#fff',
+            letterSpacing: '-0.01em',
+          }}
+        >
           Orbit Stellar
+        </span>
+
+        {/* Center links — hidden on mobile */}
+        <div className="hidden md:flex" style={{ gap: '32px', alignItems: 'center' }}>
+          {['Docs', 'SDKs', 'Changelog', 'GitHub'].map((label) => (
+            <Link
+              key={label}
+              href="#"
+              style={{
+                fontSize: '14px',
+                color: 'var(--muted2)',
+                textDecoration: 'none',
+                transition: 'color 0.15s',
+                fontFamily: 'var(--font-sans)',
+              }}
+              onMouseEnter={(e) => (e.currentTarget.style.color = '#fff')}
+              onMouseLeave={(e) => (e.currentTarget.style.color = 'var(--muted2)')}
+            >
+              {label}
+            </Link>
+          ))}
         </div>
 
-        <div className="hidden md:flex items-center gap-8">
-          <Link href="#" className="text-muted text-sm hover:text-white transition-colors">Docs</Link>
-          <Link href="#" className="text-muted text-sm hover:text-white transition-colors">SDKs</Link>
-          <Link href="#" className="text-muted text-sm hover:text-white transition-colors">How it works</Link>
-          <Link href="#" className="text-muted text-sm hover:text-white transition-colors">GitHub</Link>
-        </div>
-
+        {/* CTA */}
         <Link
           href="#"
-          className="bg-accent text-black font-bold text-sm px-5 py-2"
+          style={{
+            background: 'var(--accent)',
+            color: '#000',
+            fontFamily: 'var(--font-sans)',
+            fontWeight: 700,
+            fontSize: '13px',
+            padding: '8px 20px',
+            textDecoration: 'none',
+            letterSpacing: '0.01em',
+          }}
         >
           Get started
         </Link>

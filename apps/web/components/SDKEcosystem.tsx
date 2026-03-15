@@ -1,65 +1,135 @@
+'use client'
+
+import { useState } from 'react'
+
 const PACKAGES = [
   {
     pkg: '@orbital/pulse-webhooks',
     title: 'Pulse Webhooks',
-    description: 'Signed webhook delivery for your server.',
+    description: 'Signed webhook delivery with retries, secrets, and delivery logs for your server.',
     status: 'Live' as const,
   },
   {
     pkg: '@orbital/pulse-notify',
     title: 'Pulse Notify',
-    description: 'React hooks for real-time Stellar events.',
+    description: 'React hooks for real-time Stellar events. Drop in, subscribe, done.',
     status: 'Live' as const,
   },
   {
     pkg: '@orbital/hooks',
     title: 'Stellar Hooks',
-    description: 'useAccount, useTransaction, useBalance and more.',
+    description: 'useAccount, useTransaction, useBalance and more data hooks for React.',
     status: 'Coming soon' as const,
   },
   {
     pkg: '@orbital/auth',
     title: 'Auth SDK',
-    description: 'Embedded wallets, passkeys, fee sponsorship.',
+    description: 'Embedded wallets, passkeys, and fee sponsorship for Stellar apps.',
     status: 'Coming soon' as const,
   },
   {
     pkg: '@orbital/payments',
     title: 'Payments SDK',
-    description: 'Send, receive, swap and programmable payroll.',
+    description: 'Send, receive, swap and programmable payroll on Stellar.',
     status: 'Coming soon' as const,
   },
   {
     pkg: '@orbital/testing',
     title: 'Testing Utils',
-    description: 'Mock Horizon and local testnet helpers.',
+    description: 'Mock Horizon responses and local testnet helpers for CI.',
     status: 'Coming soon' as const,
   },
 ]
 
+function Card({ pkg, title, description, status }: typeof PACKAGES[0]) {
+  const [hovered, setHovered] = useState(false)
+  return (
+    <div
+      onMouseEnter={() => setHovered(true)}
+      onMouseLeave={() => setHovered(false)}
+      style={{
+        background: 'var(--surface)',
+        border: `1px solid ${hovered ? 'var(--border-hover)' : 'var(--border)'}`,
+        padding: '28px',
+        display: 'flex',
+        flexDirection: 'column',
+        transition: 'border-color 0.15s',
+      }}
+    >
+      <p
+        style={{
+          fontFamily: 'var(--font-mono)',
+          fontSize: '12px',
+          color: 'var(--muted)',
+        }}
+      >
+        {pkg}
+      </p>
+      <p
+        style={{
+          fontFamily: 'var(--font-sans)',
+          fontSize: '18px',
+          fontWeight: 600,
+          color: '#fff',
+          marginTop: '12px',
+        }}
+      >
+        {title}
+      </p>
+      <p
+        style={{
+          fontFamily: 'var(--font-sans)',
+          fontSize: '14px',
+          color: 'var(--muted2)',
+          lineHeight: 1.6,
+          marginTop: '8px',
+          flex: 1,
+        }}
+      >
+        {description}
+      </p>
+      <p
+        style={{
+          fontFamily: 'var(--font-mono)',
+          fontSize: '12px',
+          color: status === 'Live' ? 'var(--accent)' : 'var(--muted)',
+          marginTop: '20px',
+        }}
+      >
+        {status === 'Live' ? '● Live' : '○ Soon'}
+      </p>
+    </div>
+  )
+}
+
 export default function SDKEcosystem() {
   return (
-    <section className="px-8 py-32">
-      <div className="max-w-content mx-auto">
-        <h2 className="font-heading font-bold text-white tracking-tight text-[clamp(1.75rem,3.5vw,2.5rem)] leading-tight mb-12">
+    <section style={{ padding: '120px 32px' }}>
+      <div style={{ maxWidth: 'var(--max-width)', margin: '0 auto' }}>
+        <h2
+          style={{
+            fontFamily: 'var(--font-heading)',
+            fontSize: 'clamp(1.75rem, 3vw, 2.5rem)',
+            color: '#fff',
+            lineHeight: 1.1,
+            letterSpacing: '-0.01em',
+            marginBottom: '48px',
+            textAlign: 'center',
+          }}
+        >
           One namespace. Every layer you need.
         </h2>
 
-        {/* 3×2 grid — use outline/gap trick so all borders are equal weight */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-px bg-white/[.08] border border-white/[.08]">
-          {PACKAGES.map((item) => (
-            <div key={item.pkg} className="bg-bg p-7 flex flex-col gap-2">
-              <p className="font-mono text-muted text-xs">{item.pkg}</p>
-              <p className="font-bold text-white text-base">{item.title}</p>
-              <p className="text-muted text-sm leading-relaxed flex-1">{item.description}</p>
-              <span
-                className={`text-xs font-semibold ${
-                  item.status === 'Live' ? 'text-accent' : 'text-muted'
-                }`}
-              >
-                {item.status}
-              </span>
-            </div>
+        <div
+          style={{
+            display: 'grid',
+            gridTemplateColumns: 'repeat(3, 1fr)',
+            gap: '1px',
+            background: 'var(--border)',
+          }}
+        >
+          {PACKAGES.map((pkg) => (
+            <Card key={pkg.pkg} {...pkg} />
           ))}
         </div>
       </div>

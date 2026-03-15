@@ -3,24 +3,36 @@
 @tailwind utilities;
 
 :root {
-  --bg: #000000;
-  --text: #ffffff;
-  --muted: #666666;
-  --border: rgba(255, 255, 255, 0.08);
-  --surface: #0a0a0a;
+  --bg: #080808;
+  --surface: #111111;
+  --surface2: #1a1a1a;
+  --border: rgba(255, 255, 255, 0.06);
+  --border-hover: rgba(255, 255, 255, 0.12);
+  --text: #f2f2f2;
+  --muted: #555555;
+  --muted2: #888888;
   --accent: #e8ff47;
-}
-
-@keyframes fadeIn {
-  from { opacity: 0; }
-  to   { opacity: 1; }
-}
-
-main {
-  animation: fadeIn 0.4s ease forwards;
+  --font-heading: var(--font-instrument-serif), 'Georgia', serif;
+  --font-sans: var(--font-geist-sans), system-ui, sans-serif;
+  --font-mono: var(--font-geist-mono), ui-monospace, monospace;
+  --max-width: 1080px;
 }
 
 html {
+  scroll-behavior: smooth;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-sans);
+}
+
+/* Syntax highlight classes */
+.k  { color: #c792ea; } /* keywords */
+.s  { color: #c3e88d; } /* strings */
+.fn { color: #82aaff; } /* function names */
+.p  { color: #f78c6c; } /* properties */
+.c  { color: #546e7a; } /* comments */
