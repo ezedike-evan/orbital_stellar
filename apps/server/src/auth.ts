@@ -8,14 +8,13 @@ export function requireApiKey(req: Request, res: Response, next: NextFunction): 
     return;
   }
 
+  // Accept key via Authorization header (REST) or ?token= query param (EventSource/SSE)
   const authHeader = req.headers["authorization"];
-  if (!authHeader || !authHeader.startsWith("Bearer ")) {
-    res.status(401).json({ error: "Unauthorized" });
-    return;
-  }
+  const headerKey = authHeader?.startsWith("Bearer ") ? authHeader.slice("Bearer ".length) : null;
+  const queryKey = typeof req.query.token === "string" ? req.query.token : null;
+  const provided = headerKey ?? queryKey;
 
-  const provided = authHeader.slice("Bearer ".length);
-  if (provided !== apiKey) {
+  if (!provided || provided !== apiKey) {
     res.status(401).json({ error: "Unauthorized" });
     return;
   }

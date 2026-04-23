@@ -7,6 +7,8 @@ export type UseEventConfig = {
   serverUrl: string;
   address: string;
   event?: string; // defaults to "*" — all events
+  /** API key forwarded as ?token= query param — required when the server has authentication enabled */
+  token?: string;
 };
 
 export type EventState = {
@@ -26,8 +28,9 @@ export function useStellarEvent(config: UseEventConfig): EventState {
   });
 
   useEffect(() => {
-    const { serverUrl, address, event: eventType = "*" } = config;
-    const url = `${serverUrl}/events/${address}`;
+    const { serverUrl, address, event: eventType = "*", token } = config;
+    const base = `${serverUrl}/events/${address}`;
+    const url = token ? `${base}?token=${encodeURIComponent(token)}` : base;
 
     const source = new EventSource(url);
 
@@ -60,7 +63,7 @@ export function useStellarEvent(config: UseEventConfig): EventState {
     return () => {
       source.close();
     };
-  }, [config.serverUrl, config.address, config.event]);
+  }, [config.serverUrl, config.address, config.event, config.token]);
 
   return state;
 }
